@@ -124,26 +124,20 @@ jQuery(document).ready(function(){
 	});
 	
 	var list = new cookieList("Productos"); // all items in the array.
-	
-	var array =
-	{
-		productos:
-		[
-			{
-				firstName:"John",
-				lastName:"Doe"
-			}
-		]
-	};
-	
-	list.add(array);
-	
-	var objecto = JSON.stringify(array);
-	var convertido = JSON.parse(objecto);
-	alert(convertido.productos[0].firstName);
-	
+	//var array = '{"nombre":"John", "precio":50}';
+	//list.add(array);
+	//var resultados = list.items();
+	//var spliteado = resultados.split(',');
+	//alert(resultados[1]);
 	list.clear();
 	
+	var array = ["foo1", "foo2"];
+	
+	$.cookie("1", array);
+	alert($.cookie("1") );
+	alert(JSON.stringify($.cookie()));
+	
+	$.removeCookie('Productos');
 	
 	$("#cart-list").on("click", "button.delete", function(e)
 	{

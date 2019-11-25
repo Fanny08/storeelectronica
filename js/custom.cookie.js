@@ -1,8 +1,7 @@
 var cookieList = function(cookieName) {
 	
 var cookie = $.cookie(cookieName);
-
-var items = cookie ? cookie.split(/,/) : new Array();
+var items = (cookie != 'null') ? cookie.split(/,/) : new Array();
 
 return {
     "add": function(val) {

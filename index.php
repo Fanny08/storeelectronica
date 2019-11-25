@@ -47,16 +47,9 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/nouislider.min.js"></script>
-		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/jquery.cookie.js"></script>
-		<script src="js/jquery.json.min.js"></script>
-		<script src="js/custom.cookie.js"></script>
-		<script src="js/main.js"></script>
+		<?php
+		include('html-source/scripts.html');
+		?>
 <script>
 jQuery(document).ready(function(){
 	
@@ -95,59 +88,9 @@ jQuery(document).ready(function(){
 		});
 	}
 	
-	function loadList()
-	{
-		
-	}
-	$("#products-slick").on("click", "button.add-to-cart-btn", function(e)
-	{
-		var id = $(this).data('id');
-		var imagen = $(this).data('imagen');
-		var nombre = $(this).data('nombre');
-		var precio = $(this).data('precio');
-		
-		$('#cart-list').append(
-			'<div class="product-widget">'+
-				'<div class="product-img">'+
-					'<img src="./img/product01.png" alt="">'+
-				'</div>'+
-				'<div class="product-body">'+
-					'<h3 class="product-name"><a href="#">'+nombre+'</a></h3>'+
-					'<h4 class="product-price"><span class="qty"></span>$'+precio+'</h4>'+
-				'</div>'+
-				'<button class="delete" data-id="'+id+'"><i class="fa fa-close"></i></button>'+
-			'</div>'
-		);
-		
-		$('#subtotal').text('2500');
-		
-	});
-	
-	var list = new cookieList("Productos"); // all items in the array.
-	//var array = '{"nombre":"John", "precio":50}';
-	//list.add(array);
-	//var resultados = list.items();
-	//var spliteado = resultados.split(',');
-	//alert(resultados[1]);
-	list.clear();
-	
-	var array = ["foo1", "foo2"];
-	
-	$.cookie("1", array);
-	alert($.cookie("1") );
-	alert(JSON.stringify($.cookie()));
-	
-	$.removeCookie('Productos');
-	
-	$("#cart-list").on("click", "button.delete", function(e)
-	{
-		var id = $(this).data('id');
-		
-	});
-	
 	$.ajax
 	({
-		url:"php/getProductos.php",
+		url:"php/productos/getProductos.php",
 		type:"post",
 		dataType: 'json',
 		success:function(datos)
@@ -167,7 +110,7 @@ jQuery(document).ready(function(){
 				$('#products-slick').append(
 					'<div class="product">'+
 						'<div class="product-img">'+
-							'<img src="./img/product02.png" alt="">'+
+							'<img src="./img/'+imagen+'" alt="">'+
 						'</div>'+
 						'<div class="product-body">'+
 							'<h3 class="product-name"><a href="#">'+nombre+'</a></h3>'+
@@ -176,7 +119,7 @@ jQuery(document).ready(function(){
 								estrellas +
 							'</div>'+
 							'<div class="product-btns">'+
-								'<button class="quick-view"><a href="producto.php?producto='+id+'"><i class="fa fa-eye"></i><span class="tooltipp">Ver</span></a></button>'+
+								'<button class="quick-view"><a href="producto.php?id='+id+'"><i class="fa fa-eye"></i><span class="tooltipp">Ver</span></a></button>'+
 							'</div>'+
 						'</div>'+
 						'<div class="add-to-cart">'+
@@ -187,7 +130,16 @@ jQuery(document).ready(function(){
 			}
 			initSlick();
 		}
+	});
+	
+	$("#products-slick").on("click", "button.add-to-cart-btn", function(e)
+	{
+		var id = $(this).data('id');
+		var imagen = $(this).data('imagen');
+		var nombre = $(this).data('nombre');
+		var precio = $(this).data('precio');
 		
+		addCarrito(id, imagen, nombre, precio);
 	});
 });
 </script>
